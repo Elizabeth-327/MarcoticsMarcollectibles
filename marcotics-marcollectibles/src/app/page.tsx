@@ -1,6 +1,8 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
+import { MapContainer, TileLayer, useMap} from 'react-leaflet';
+
 export default function Home() {
   return (
     <div className={styles.page}>
@@ -13,6 +15,12 @@ export default function Home() {
           height={38}
           priority
         />
+        <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+        </MapContainer>
         <ol>
           <li>
             Get started by editing <code>src/app/page.tsx</code>.
