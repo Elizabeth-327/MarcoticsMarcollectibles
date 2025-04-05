@@ -4,9 +4,9 @@ import styles from "./page.module.css";
 import List from "@/UI/list";
 import SearchBar from "@/Hooks/SearchBar";
 import { useState } from "react";
+import Map from "@/UI/map";
 
 export default function Home() {
-  const listItems: string[] = ["mcdonalds 1", "mcdonalds 2", "mcdonalds 3"];
   const [ListItems, setListItems] = useState<string[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
   const handleSearchResults = (results: string[]) => {
@@ -18,7 +18,8 @@ export default function Home() {
     <div className={styles.container}>
       {/* map area */}
     < div className={styles.mapArea}>
-      <h1> Map Display Area</h1>
+      x
+      <Map></Map>
       <h1>{/*add map component here */ }</h1>
       
       </div>
@@ -36,7 +37,7 @@ export default function Home() {
           />
           {/*conditionally render the list based on the search results*/}
 
-        { isQueryDone && <List items={listItems} />}
+        { isQueryDone && <List items={ListItems} />}
       </div>
       </div>
     </div> 
