@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import List from "@/UI/list";
+import SearchBar from "@/Hooks/SearchBar";
 
 export default function Home() {
   const listItems: string[] = ["mcdonalds 1", "mcdonalds 2", "mcdonalds 3"];
@@ -8,9 +9,13 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <h1>Welcome to Marcollectibles</h1>
-      <h2>L<List items={listItems} /></h2>
+      <h2><List items={listItems} /></h2>
       
+      
+      <h2>Search for collectibles</h2>
+      <SearchBar />
     </div>
+  
   );
 }
 
