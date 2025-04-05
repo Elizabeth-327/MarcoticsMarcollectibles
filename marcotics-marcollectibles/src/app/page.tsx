@@ -1,7 +1,24 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import { useEffect, useState } from "react";
+import { getMcDonaldsLocations } from "./api_call";
+
 
 export default function Home() {
+  useEffect(() => {
+    console.log("Component mounted");
+
+    // Example API call
+    getMcDonaldsLocations().then((data) => {
+      console.log("Fetched data:", data);
+    }).catch((error) => {
+      console.error("Error fetching McDonald's locations:", error);
+    });
+  }, []);
+
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -19,7 +36,6 @@ export default function Home() {
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>
-
         <div className={styles.ctas}>
           <a
             className={styles.primary}
