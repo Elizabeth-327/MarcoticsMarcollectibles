@@ -1,9 +1,48 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import jsonData from "./output.json" assert { type: "json" };
+console.log(jsonData);
 
-const result = {
-  ID: 
+type resultData = {
+  name: string,
+  address: string
 }
+
+export function JsonList() {
+  const results = new Map<number, resultData>();
+
+  for (const i in jsonData) {
+    let address = "";
+    if (jsonData[i].address["house_number"] != undefined) {
+      address += jsonData[i].address["house_number"] + " ";
+    }
+    address += jsonData[i].address["road"] + ", "
+      + jsonData[i].address["city"] + ", "
+      + jsonData[i].address["state"] + ", "
+      + jsonData[i].address["country"];
+    const newPlace = {
+      name: jsonData[i].name,
+      address: address
+    };
+
+    results.set(jsonData[i].place_id, newPlace);
+  }
+
+  return (
+    <div>
+      <h1>Results:</h1>
+      <ul>
+        {Array.from(results.entries()).map(([key, value]) => (
+          <li key={key}>
+            {value.name}: {value.address}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+
 
 export default function Home() {
   return (
@@ -17,8 +56,12 @@ export default function Home() {
           height={38}
           priority
         />
-        <input type="text" id="myInput" name="myInput"></input>
-        <button>Search</button>
+        <label>
+          Your first name:<br></br>
+          <input name="searchquery" /> 
+          <button>Search</button>
+        </label>
+        <JsonList />
       </main>
     </div>
     // <div className={styles.page}>

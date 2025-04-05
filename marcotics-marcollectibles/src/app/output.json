@@ -1,0 +1,166 @@
+[
+    {
+        "place_id": 310697092,
+        "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "way",
+        "osm_id": 218982343,
+        "lat": "38.9726258",
+        "lon": "-95.25029736249631",
+        "class": "amenity",
+        "type": "fast_food",
+        "place_rank": 30,
+        "importance": 6.434500648503879e-05,
+        "addresstype": "amenity",
+        "name": "McDonald's",
+        "display_name": "McDonald's, 1309, West 6th Street, Lawrence, Douglas County, Kansas, 66044, United States",
+        "address": {
+            "amenity": "McDonald's",
+            "house_number": "1309",
+            "road": "West 6th Street",
+            "city": "Lawrence",
+            "county": "Douglas County",
+            "state": "Kansas",
+            "ISO3166-2-lvl4": "US-KS",
+            "postcode": "66044",
+            "country": "United States",
+            "country_code": "us"
+        },
+        "boundingbox": [
+            "38.9725411",
+            "38.9728798",
+            "-95.2503856",
+            "-95.2501656"
+        ]
+    },
+    {
+        "place_id": 310363605,
+        "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "way",
+        "osm_id": 219358913,
+        "lat": "38.97094495",
+        "lon": "-95.30756820128794",
+        "class": "amenity",
+        "type": "fast_food",
+        "place_rank": 30,
+        "importance": 6.434500648503879e-05,
+        "addresstype": "amenity",
+        "name": "McDonald's",
+        "display_name": "McDonald's, 4911, West 6th Street, Lawrence, Douglas County, Kansas, 66049, United States",
+        "address": {
+            "amenity": "McDonald's",
+            "house_number": "4911",
+            "road": "West 6th Street",
+            "city": "Lawrence",
+            "county": "Douglas County",
+            "state": "Kansas",
+            "ISO3166-2-lvl4": "US-KS",
+            "postcode": "66049",
+            "country": "United States",
+            "country_code": "us"
+        },
+        "boundingbox": [
+            "38.9707307",
+            "38.9711175",
+            "-95.3076540",
+            "-95.3074825"
+        ]
+    },
+    {
+        "place_id": 308607791,
+        "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "way",
+        "osm_id": 218961994,
+        "lat": "38.942379599999995",
+        "lon": "-95.24469999547976",
+        "class": "amenity",
+        "type": "fast_food",
+        "place_rank": 30,
+        "importance": 6.434500648503879e-05,
+        "addresstype": "amenity",
+        "name": "McDonald's",
+        "display_name": "McDonald's, 901, West 23rd Street, Lawrence, Douglas County, Kansas, 66046, United States",
+        "address": {
+            "amenity": "McDonald's",
+            "house_number": "901",
+            "road": "West 23rd Street",
+            "city": "Lawrence",
+            "county": "Douglas County",
+            "state": "Kansas",
+            "ISO3166-2-lvl4": "US-KS",
+            "postcode": "66046",
+            "country": "United States",
+            "country_code": "us"
+        },
+        "boundingbox": [
+            "38.9422843",
+            "38.9425914",
+            "-95.2448062",
+            "-95.2445945"
+        ]
+    },
+    {
+        "place_id": 311161577,
+        "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "way",
+        "osm_id": 219637466,
+        "lat": "38.92499045",
+        "lon": "-95.26120462661697",
+        "class": "amenity",
+        "type": "fast_food",
+        "place_rank": 30,
+        "importance": 6.434500648503879e-05,
+        "addresstype": "amenity",
+        "name": "McDonald's",
+        "display_name": "McDonald's, 3241, Iowa Street, Lawrence, Douglas County, Kansas, 66047, United States",
+        "address": {
+            "amenity": "McDonald's",
+            "house_number": "3241",
+            "road": "Iowa Street",
+            "city": "Lawrence",
+            "county": "Douglas County",
+            "state": "Kansas",
+            "ISO3166-2-lvl4": "US-KS",
+            "postcode": "66047",
+            "country": "United States",
+            "country_code": "us"
+        },
+        "boundingbox": [
+            "38.9249181",
+            "38.9250469",
+            "-95.2613900",
+            "-95.2610192"
+        ]
+    },
+    {
+        "place_id": 310313816,
+        "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "way",
+        "osm_id": 44904587,
+        "lat": "39.01917375",
+        "lon": "-95.13681485200937",
+        "class": "amenity",
+        "type": "fast_food",
+        "place_rank": 30,
+        "importance": 3.116426337067243e-05,
+        "addresstype": "amenity",
+        "name": "McDonald's",
+        "display_name": "McDonald's, Kansas Turnpike, Lawrence, Leavenworth County, Kansas, 66046, United States",
+        "address": {
+            "amenity": "McDonald's",
+            "road": "Kansas Turnpike",
+            "city": "Lawrence",
+            "county": "Leavenworth County",
+            "state": "Kansas",
+            "ISO3166-2-lvl4": "US-KS",
+            "postcode": "66046",
+            "country": "United States",
+            "country_code": "us"
+        },
+        "boundingbox": [
+            "39.0190089",
+            "39.0193360",
+            "-95.1370646",
+            "-95.1365912"
+        ]
+    }
+]
