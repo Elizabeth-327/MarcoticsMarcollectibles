@@ -1,9 +1,9 @@
 "use client";
-import Image from "next/image";
 import styles from "./page.module.css";
 import List from "@/UI/list";
 import SearchBar from "@/Hooks/SearchBar";
 import { useState } from "react";
+import { getMcDonaldsLocations } from "./api_call";
 import dynamic from "next/dynamic";
 
 // Dynamically import the Map and ResultPins components to ensure they only render on the client
@@ -20,13 +20,23 @@ type ResultData = {
 };
 
 export default function Home() {
-  const [ListItems, setListItems] = useState<string[]>([]);
+  const [data, setListItems] = useState<string[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
-  const [results, setResults] = useState<Map<number, ResultData>>(new Map());
+const [results, setResults] = useState<Map<number, ResultData>>(new Map());
+  const handleSearch = (query: string) => {
+    console.log("Search query:", query);
 
-  const handleSearchResults = (results: string[]) => {
-    setListItems(results);
-    setIsQueryDone(true);
+    // Make the API call when the user searches
+    setIsQueryDone(false); // Show loading state
+    getMcDonaldsLocations(query) // Pass the query to the API call
+      .then((data: string[]) => {
+        console.log("Fetched data for query:", data);
+        setListItems(data); // Update state with fetched data
+        setIsQueryDone(true); // Mark query as done
+      })
+      .catch((error) => {
+        console.error("Error fetching McDonald's locations for query:", error);
+      });
   };
 
   const addResult = (id: number, data: ResultData) => {
@@ -49,15 +59,17 @@ export default function Home() {
       {/* sidebar area */}
       <div className={styles.sidebar}>
         <div className={styles.SearchBar}>
-          {/* Search bar component receives items and displays the list */}
-          <h1>Search for locations</h1>
-          <SearchBar
-            onSearch={(results: string[]) => {
-              handleSearchResults(results);
-            }}
-          />
+        <SearchBar onSearch={handleSearch} />
           {/* Conditionally render the list based on the search results */}
-          {isQueryDone && <List items={ListItems} />}
+          {isQueryDone ? (
+            data.length > 0 ? (
+              <List items={data} />
+            ) : (
+              <p>No results found</p>
+            )
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </div>
     </div>
