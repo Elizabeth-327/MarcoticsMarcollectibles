@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
-export const getMcDonaldsLocations = async () => {
+export const getMcDonaldsLocations = async (query: string): Promise <string[]> => {
     const baseUrl = "https://nominatim.openstreetmap.org/lookup";
     const ways = [
             "W218982343",
@@ -16,7 +16,12 @@ export const getMcDonaldsLocations = async () => {
             const url = `${baseUrl}?osm_ids=${ways[i]}&format=json`;
             const response = await axios.get(url);
             if (response.data && response.data[0]) {
-                locations.push(response.data[0].display_name); // Store the display name
+                const displayName = response.data[0].display_name;
+
+                // Filter results based on the query (case-insensitive)
+                if (displayName.toLowerCase().includes(query.toLowerCase())) {
+                  locations.push(displayName); // Add matching location to the results
+                }
             }
         } catch (error) {
             console.error('Error fetching OSM data:', error);
