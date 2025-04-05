@@ -1,39 +1,26 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import { useEffect, useState } from "react";
 
-// Fix for missing marker icons
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
+export default function LeafletMap({ children }: { children?: React.ReactNode }) {
+  const [isClient, setIsClient] = useState(false);
 
-// Define the default icon for markers
-const DefaultIcon = L.icon({
-  iconUrl: typeof markerIcon === "string" ? markerIcon : markerIcon.src, // Extract the `src` property if it's a StaticImageData object
-  shadowUrl: typeof markerShadow === "string" ? markerShadow : markerShadow.src, // Extract the `src` property if it's a StaticImageData object
-  iconSize: [25, 41], // Default size for Leaflet markers
-  iconAnchor: [12, 41], // Anchor point of the icon
-  popupAnchor: [1, -34], // Anchor point for popups
-  shadowSize: [41, 41], // Size of the shadow
-});
-L.Marker.prototype.options.icon = DefaultIcon;
+  useEffect(() => {
+    // Ensure this component only renders on the client side
+    setIsClient(true);
+  }, []);
 
-export default function Map() {
+  if (!isClient) {
+    return null; // Render nothing on the server
+  }
+
   return (
-    <MapContainer
-      center={[51.505, -0.09]} // Initial center of the map
-      zoom={13} // Initial zoom level
-      style={{ height: "100vh", width: "100%" }} // Fullscreen map
-    >
-      {/* Add a tile layer (e.g., OpenStreetMap) */}
+    <MapContainer center={[38.9717, -95.2353]} zoom={13} style={{ height: "100%", width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-
-      {/* Add a marker */}
-      <Marker position={[51.505, -0.09]}>
-        <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
-      </Marker>
+      {children /* Render any child components, such as markers */}
     </MapContainer>
   );
 }

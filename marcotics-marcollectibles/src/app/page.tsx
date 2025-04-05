@@ -6,8 +6,9 @@ import SearchBar from "@/Hooks/SearchBar";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 
-// Dynamically import the Map component to ensure it only renders on the client
+// Dynamically import the Map and ResultPins components to ensure they only render on the client
 const LeafletMap = dynamic(() => import("@/UI/map"), { ssr: false });
+const ResultPins = dynamic(() => import("@/UI/resultPins"), { ssr: false });
 
 type ResultData = {
   name: string;
@@ -18,35 +19,31 @@ type ResultData = {
   };
 };
 
-const results = new Map<number, ResultData>();
-
-export function ListResults() {
-  return (
-    <div>
-      <ul>
-        {Array.from(results.values()).map((result) => (
-          <li key={result.name}>
-            {result.name} - {result.address}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 export default function Home() {
   const [ListItems, setListItems] = useState<string[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
+  const [results, setResults] = useState<Map<number, ResultData>>(new Map());
+
   const handleSearchResults = (results: string[]) => {
     setListItems(results);
     setIsQueryDone(true);
+  };
+
+  const addResult = (id: number, data: ResultData) => {
+    setResults(prevResults => {
+      const updatedResults = new Map(prevResults);
+      updatedResults.set(id, data);
+      return updatedResults;
+    });
   };
 
   return (
     <div className={styles.container}>
       {/* map area */}
       <div className={styles.mapArea}>
-        <LeafletMap />
+        <LeafletMap>
+          <ResultPins results={results} />
+        </LeafletMap>
         <h1>{/* add map component here */}</h1>
       </div>
       {/* sidebar area */}
