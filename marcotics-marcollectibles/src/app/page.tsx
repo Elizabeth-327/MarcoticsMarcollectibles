@@ -3,12 +3,28 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import List from "@/UI/list";
 import SearchBar from "@/Hooks/SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getMcDonaldsLocations } from "./api_call";
 
 export default function Home() {
-  const listItems: string[] = ["mcdonalds 1", "mcdonalds 2", "mcdonalds 3"];
-  const [ListItems, setListItems] = useState<string[]>([]);
+
+  //const listItems: string[] = ["mcdonalds 1", "mcdonalds 2", "mcdonalds 3"];
+  const [data, setListItems] = useState<string[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
+
+  useEffect(() => {
+    console.log("Component mounted");
+
+    // Fetch McDonald's locations and update state
+    getMcDonaldsLocations().then((fetchedData: string[]) => {
+      console.log("Fetched data:", fetchedData);
+      setListItems(fetchedData); // Update state with fetched data
+      setIsQueryDone(true); // Set query done to true
+    }).catch((error) => {
+      console.error("Error fetching McDonald's locations:", error);
+    });
+  }, []);
+
   const handleSearchResults = (results: string[]) => {
     setListItems(results);
     setIsQueryDone(true);
@@ -36,7 +52,7 @@ export default function Home() {
           />
           {/*conditionally render the list based on the search results*/}
 
-        { isQueryDone && <List items={listItems} />}
+        { isQueryDone && <List items={data} />}
       </div>
       </div>
     </div> 
