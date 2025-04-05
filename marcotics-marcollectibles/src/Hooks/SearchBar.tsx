@@ -27,7 +27,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
     setPending(false);
   };
 
-  return (
+  return (  
     <form onSubmit={handleSubmit}>
       <input
         type="text"
