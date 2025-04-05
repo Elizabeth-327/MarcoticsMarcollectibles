@@ -1,20 +1,45 @@
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
 import List from "@/UI/list";
 import SearchBar from "@/Hooks/SearchBar";
+import { useState } from "react";
 
 export default function Home() {
   const listItems: string[] = ["mcdonalds 1", "mcdonalds 2", "mcdonalds 3"];
+  const [ListItems, setListItems] = useState<string[]>([]);
+  const [isQueryDone, setIsQueryDone] = useState(false);
+  const handleSearchResults = (results: string[]) => {
+    setListItems(results);
+    setIsQueryDone(true);
+  };
 
   return (
-    <div className={styles.page}>
-      <h1>Welcome to Marcollectibles</h1>
-      <h2><List items={listItems} /></h2>
+    <div className={styles.container}>
+      {/* map area */}
+    < div className={styles.mapArea}>
+      <h1> Map Display Area</h1>
+      <h1>{/*add map component here */ }</h1>
       
+      </div>
+      {/* sidebar area */}
       
-      <h2>Search for collectibles</h2>
-      <SearchBar />
-    </div>
+      <div className={styles.sidebar}>
+        <div className={styles.SearchBar}>
+          {/* Search bar comonent receives items and displays the list*/}
+        <h1>Search for locations</h1>
+        <SearchBar
+            onSearch={(results: string[]) => {
+              handleSearchResults(results);
+
+            }}
+          />
+          {/*conditionally render the list based on the search results*/}
+
+        { isQueryDone && <List items={listItems} />}
+      </div>
+      </div>
+    </div> 
   
   );
 }

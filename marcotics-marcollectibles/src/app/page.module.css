@@ -166,3 +166,39 @@ a.secondary {
     filter: invert();
   }
 }
+
+.container {
+  display: flex;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+}
+
+.mapArea {
+  flex: 3; /* Take up 3/4 of the width */
+  background-color: #f0f0f0; /* Light gray background for the map area */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ccc; /* Optional border to separate map and sidebar */
+}
+
+.sidebar {
+  flex: 1; /* Take up 1/4 of the width */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #ffffff; /* White background for the sidebar */
+}
+
+.searchBar {
+  margin-bottom: 20px;
+width: 100vw;
+}
+
+.resultList {
+  flex-grow: 1; /* Allow the result list to grow and take up remaining space */
+  overflow-y: auto; /* Add scroll if the list is too long */
+  margin-top: 20px;
+  border-top: 1px solid #ccc; /* Optional border to separate search bar and results */
+  padding-top: 10px;
+}
