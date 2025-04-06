@@ -19,8 +19,14 @@ type ResultData = {
   };
 };
 
+type LocationInfo = {
+  displayName: string;
+  wayId: string;
+  coordinates: [number, number];
+}
+
 export default function Home() {
-  const [displayNames, setListItems] = useState<string[]>([]);
+  const [locations, setLocations] = useState<LocationInfo[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
   const [results, setResults] = useState<Map<number, ResultData>>(new Map());
   const handleSearch = (query: string) => {
@@ -32,7 +38,7 @@ export default function Home() {
       .then((locations) => {
         console.log("Fetched data for query:", locations);
         const displayNames = locations.map((location) => location.displayName);
-        setListItems(displayNames); // Update state with display names
+        setLocations(locations); // Update state with location data
         setIsQueryDone(true); // Mark query as done
       })
       .catch((error) => {
@@ -63,8 +69,8 @@ export default function Home() {
         <SearchBar onSearch={handleSearch} />
           {/* Conditionally render the list based on the search results */}
           {isQueryDone ? (
-            displayNames.length > 0 ? (
-              <List items={displayNames} />
+            locations.length > 0 ? (
+              <List items={locations} />
             ) : (
               <p>No results found</p>
             )
