@@ -22,7 +22,7 @@ type ResultData = {
 export default function Home() {
   const [data, setListItems] = useState<string[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
-const [results, setResults] = useState<Map<number, ResultData>>(new Map());
+  const [results, setResults] = useState<Map<number, ResultData>>(new Map());
   const handleSearch = (query: string) => {
     console.log("Search query:", query);
 
