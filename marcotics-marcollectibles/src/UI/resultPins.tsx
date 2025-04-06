@@ -1,4 +1,6 @@
-import { Marker, Popup } from "react-leaflet";
+import { useEffect } from "react";
+import { Marker, useMap } from "react-leaflet";
+import L from "leaflet";
 
 type ResultData = {
   name: string;
@@ -10,14 +12,29 @@ type ResultData = {
 };
 
 export default function ResultPins({ results }: { results: Map<number, ResultData> }) {
-  const listResults = Array.from(results.keys()).map(key => (
-    <Marker key={key} position={[results.get(key)!.coordinates.lat, results.get(key)!.coordinates.lng]}>
-      <Popup>
-        <h1>{results.get(key)!.name}</h1>
-        <p>{results.get(key)!.address}</p>
-      </Popup>
-    </Marker>
-  ));
+  const map = useMap(); // Access the Leaflet map instance
 
-  return <>{listResults}</>;
+  useEffect(() => {
+    // Iterate over the results and add Leaflet popups
+    results.forEach((result, key) => {
+      const marker = L.marker([result.coordinates.lat, result.coordinates.lng]).addTo(map);
+
+      // Create and bind a Leaflet popup
+      const popup = L.popup()
+        .setContent(`<h1>${result.name}</h1><p>${result.address}</p>`)
+        .openOn(map); // Automatically open the popup when the marker is added
+      marker.bindPopup(popup);
+    });
+
+    // Cleanup function to remove markers when the component unmounts
+    return () => {
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker) {
+          map.removeLayer(layer);
+        }
+      });
+    };
+  }, [map, results]);
+
+  return null; // No JSX is returned because we're adding markers directly to the Leaflet map
 }
