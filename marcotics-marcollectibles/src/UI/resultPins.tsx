@@ -16,7 +16,7 @@ export default function ResultPins({ results }: { results: Map<number, ResultDat
 
   // Define a custom icon for the markers
   const customIcon = L.icon({
-    iconUrl: "/dropped_pin.jpg",
+    iconUrl: "/dropped_pin.png",
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],

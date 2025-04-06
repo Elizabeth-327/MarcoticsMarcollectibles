@@ -27,6 +27,7 @@ type LocationInfo = {
 export default function Home() {
   const [locations, setLocations] = useState<ResultData[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false); // tracks if a search has been initiated
   const [results, setResults] = useState<Map<number, ResultData>>(new Map());
 
   const handleSearch = (query: string) => {
