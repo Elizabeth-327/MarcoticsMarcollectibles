@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
-type LocationInfo = {
+ export type LocationInfo = {
     displayName: string;
     wayId: string;
     coordinates: [number, number];
