@@ -3,7 +3,6 @@ type LocationInfo = {
   displayName: string;
   wayId: string;
   coordinates: [number, number];
-  toys: string;
 };
 
 interface ListProps {

@@ -1,8 +1,23 @@
 {
-    "W218982343" : "Happy meal toy #2 (Evoker)", 
-    "W219358913" : "Unknown",
-    "W218961994" : "Happy meal toy #2 (Evoker)",
-    "W219637466" : "Unknown",
-    "W44904587" : "Happy meal toy #1 (Grass and Llama)"
+  "W218982343" : {
+    "name" : "Happy meal toy #2 (Evoker)",
+    "image": "evoker.png"
+  },
+  "W219358913" : {
+    "name" : "Unknown",
+    "image": "add_image_icon.jpg"
+  },
+  "W218961994" : {
+    "name" : "Happy meal toy #2 (Evoker)",
+    "image": "evoker.png"
+  },
+  "W219637466" : {
+    "name" : "Unknown",
+    "image" : "add_image_icon.jpg"
+  },
+  "W44904587" : {
+    "name" : "Happy meal toy #1 (Grass and Llama)",
+    "image": "grass_and_llama.png"
   }
+}
   

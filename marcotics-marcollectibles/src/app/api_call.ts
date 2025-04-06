@@ -7,8 +7,7 @@ const toysData = JSON.parse(JSON.stringify(toys));
  export type LocationInfo = {
     displayName: string;
     wayId: string;
-    coordinates: [number, number],
-    toys: string;
+    coordinates: [number, number];
 };
 
 export const getMcDonaldsLocations = async (query: string): Promise <LocationInfo[]> => {
@@ -33,7 +32,7 @@ export const getMcDonaldsLocations = async (query: string): Promise <LocationInf
                     parseFloat(response.data[0].lat), 
                     parseFloat(response.data[0].lon)
                 ];
-                const toys = toysData["W" + wayId] || "No toys available"; // Use wayId to find toys
+                const toys = toysData["W" + wayId]["name"] || "No toys available"; // Use wayId to find toys
                 const info: LocationInfo = {
                     displayName,
                     wayId,

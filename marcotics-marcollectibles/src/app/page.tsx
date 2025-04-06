@@ -18,14 +18,16 @@ type ResultData = {
     lat: number;
     lng: number;
   },
-  toys: string;
+  toys: {
+    name: string;
+    image: string;
+  }
 };
 
 type LocationInfo = {
   displayName: string;
   wayId: string;
-  coordinates: [number, number],
-  toys: string;
+  coordinates: [number, number];
 }
 
 const toysData = JSON.parse(JSON.stringify(toys));
@@ -53,7 +55,7 @@ export default function Home() {
             lat: location.coordinates[0], // Extract latitude from coordinates
             lng: location.coordinates[1], // Extract longitude from coordinates
           },
-          toys: toysData["W" + location.wayId] || "No toys available", // Use wayId to find toys
+          toys: toysData["W" + location.wayId] || {name: "No toys available", image: "add_image_icon.jpg"} // Use wayId to find toys
         }));
   
         setLocations(transformedLocations); // Update state with transformed data
