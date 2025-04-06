@@ -39,6 +39,7 @@ export default function List({ items, onViewInfo }: ListProps) {
           </button>
         </div>
       ))}
+      <p>Click any address to show on the map!</p>
     </div>
   );
 }
