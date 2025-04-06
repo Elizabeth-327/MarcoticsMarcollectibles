@@ -57,9 +57,9 @@ export default function Home() {
   };
 
   const addResult = (location: ResultData) => {
-    setResults((prevResults) => {
-      const updatedResults = new Map(prevResults);
-      updatedResults.set(updatedResults.size + 1, location); // Add the new marker with a unique key
+    setResults(() => {
+      const updatedResults = new Map(); // Clear all existing pins
+      updatedResults.set(1, location); // Add the new marker with a unique key
       return updatedResults;
     });
   };
