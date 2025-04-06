@@ -6,6 +6,7 @@ import { useState } from "react";
 import { getMcDonaldsLocations } from "./api_call";
 import dynamic from "next/dynamic";
 import Throbber from "@/UI/Throbber";
+import toys from "./toys.json";
 
 // Dynamically import the Map and ResultPins components to ensure they only render on the client
 const LeafletMap = dynamic(() => import("@/UI/map"), { ssr: false });
@@ -17,19 +18,24 @@ type ResultData = {
   coordinates: {
     lat: number;
     lng: number;
-  };
+  },
+  toys: string;
 };
 
 type LocationInfo = {
   displayName: string;
   wayId: string;
-  coordinates: [number, number];
-};
+  coordinates: [number, number],
+  toys: string;
+}
+
+const toysData = JSON.parse(JSON.stringify(toys));
 
 export default function Home() {
   const [locations, setLocations] = useState<ResultData[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
   const [isSearching, setIsSearching] = useState(false); // New state to track if a search is in progress
+  const [hasSearched, setHasSearched] = useState(false); // tracks if a search has been initiated
   const [results, setResults] = useState<Map<number, ResultData>>(new Map());
 
   const handleSearch = (query: string) => {
@@ -50,6 +56,7 @@ export default function Home() {
             lat: location.coordinates[0],
             lng: location.coordinates[1],
           },
+          toys: toysData["W" + location.wayId] || "No toys available", // Use wayId to find toys
         }));
 
         setLocations(transformedLocations); // Update state with transformed data

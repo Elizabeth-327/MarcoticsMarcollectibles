@@ -9,6 +9,7 @@ type ResultData = {
     lat: number;
     lng: number;
   };
+  toys: string;
 };
 
 export default function ResultPins({ results }: { results: Map<number, ResultData> }) {
@@ -16,7 +17,7 @@ export default function ResultPins({ results }: { results: Map<number, ResultDat
 
   // Define a custom icon for the markers
   const customIcon = L.icon({
-    iconUrl: "/dropped_pin.jpg",
+    iconUrl: "/dropped_pin.png",
     iconSize: [32, 32],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
@@ -34,7 +35,7 @@ export default function ResultPins({ results }: { results: Map<number, ResultDat
     results.forEach((result) => {
       const marker = L.marker([result.coordinates.lat, result.coordinates.lng], {icon: customIcon}).addTo(map);
       // Create and bind a Leaflet popup
-      const popup = L.popup().setContent(`<h1>${result.name}</h1><p>${result.address}</p>`);
+      const popup = L.popup().setContent(`<h1>${result.name}</h1><p>${result.address}</p><p>${result.toys}</p>`);
       marker.bindPopup(popup);
     });
   }, [map, results]); // Re-run effect whenever `results` changes

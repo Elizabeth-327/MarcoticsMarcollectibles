@@ -1,13 +1,14 @@
  
-  type LocationInfo = {
+type LocationInfo = {
   displayName: string;
   wayId: string;
   coordinates: [number, number];
+  toys: string;
 };
 
 interface ListProps {
-  items: { name: string; address: string; coordinates: { lat: number; lng: number } }[];
-  onViewInfo: (location: { name: string; address: string; coordinates: { lat: number; lng: number } }) => void;
+  items: { name: string; address: string; coordinates: { lat: number; lng: number }, toys: string; }[];
+  onViewInfo: (location: { name: string; address: string; coordinates: { lat: number; lng: number }, toys: string; }) => void;
 }
 
 export default function List({ items, onViewInfo }: ListProps) {
@@ -15,8 +16,6 @@ export default function List({ items, onViewInfo }: ListProps) {
     <div>
       {items.map((item, index) => (
         <div key={index}>
-          {/* <h3>{item.name}</h3>
-          <p>{item.address}</p> */}
           <button
             style={{
               border: "1px solid black",
