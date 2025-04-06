@@ -3,12 +3,12 @@ import styles from "./page.module.css";
 import List from "@/UI/list";
 import SearchBar from "@/Hooks/SearchBar";
 import { useState } from "react";
-import { getMcDonaldsLocations } from "./api_call";
+import { getFoodLocations } from "./api_call";
 import dynamic from "next/dynamic";
 import Throbber from "@/UI/Throbber";
 import toys from "./toys.json";
+import food from "./food.json";
 
-// Dynamically import the Map and ResultPins components to ensure they only render on the client
 const LeafletMap = dynamic(() => import("@/UI/map"), { ssr: false });
 const ResultPins = dynamic(() => import("@/UI/resultPins"), { ssr: false });
 
@@ -18,87 +18,128 @@ type ResultData = {
   coordinates: {
     lat: number;
     lng: number;
-  },
-  toys: {
+  };
+  additionalData: {
+    type: "toy" | "food" | "unknown";
     name: string;
-    image: string;
-  }
+    image?: string;
+    items?: {
+      eggs?: string;
+      banana?: string;
+      cuties?: string;
+      grapes?: string;
+    };
+  };
 };
 
 type LocationInfo = {
   displayName: string;
   wayId: string;
   coordinates: [number, number];
-}
+};
 
 const toysData = JSON.parse(JSON.stringify(toys));
+const foodData = JSON.parse(JSON.stringify(food));
 
 export default function Home() {
   const [locations, setLocations] = useState<ResultData[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
-  const [isSearching, setIsSearching] = useState(false); // New state to track if a search is in progress
-  const [hasSearched, setHasSearched] = useState(false); // tracks if a search has been initiated
+  const [isSearching, setIsSearching] = useState(false);
   const [results, setResults] = useState<Map<number, ResultData>>(new Map());
+  const [query, setQuery] = useState<string>(""); // Add query state
 
   const handleSearch = (query: string) => {
     console.log("Search query:", query);
-
-    setIsSearching(true); // Start the search
-    setIsQueryDone(false); // Reset query state
-
-    getMcDonaldsLocations(query)
+  
+    setQuery(query); // Update the query state
+    setLocations([]); // Clear previous search results
+    setResults(new Map()); // Clear previous pins
+    setIsSearching(true);
+    setIsQueryDone(false);
+  
+    getFoodLocations(query)
       .then((locations: LocationInfo[]) => {
         console.log("Fetched data for query:", locations);
-
-        // Transform LocationInfo to ResultData
-        const transformedLocations: ResultData[] = locations.map((location) => ({
-          name: location.displayName,
-          address: `Way ID: ${location.wayId}`,
-          coordinates: {
-            lat: location.coordinates[0],
-            lng: location.coordinates[1],
-          },
-          toys: toysData["W" + location.wayId] || {name: "No toys available", image: "add_image_icon.jpg"} // Use wayId to find toys
-        }));
-
-        setLocations(transformedLocations); // Update state with transformed data
-        setIsQueryDone(true); // Mark query as done
+  
+        const transformedLocations: ResultData[] = locations.map((location) => {
+          const toyData = toysData["W" + location.wayId];
+          const foodDataEntry = foodData["W" + location.wayId];
+  
+          let additionalData: ResultData["additionalData"];
+          if (toyData) {
+            additionalData = {
+              type: "toy",
+              name: toyData.name || "No toys available",
+              image: toyData.image || "add_image_icon.jpg",
+            };
+          } else if (foodDataEntry) {
+            additionalData = {
+              type: "food",
+              name: foodDataEntry.name || "No food available",
+              items: {
+                eggs: foodDataEntry.eggs || "N/A",
+                banana: foodDataEntry.banana || "N/A",
+                cuties: foodDataEntry.cuties || "N/A",
+                grapes: foodDataEntry.grapes || "N/A",
+              },
+            };
+          } else {
+            additionalData = {
+              type: "unknown",
+              name: "No data available",
+            };
+          }
+  
+          return {
+            name: location.displayName,
+            address: `Way ID: ${location.wayId}`,
+            coordinates: {
+              lat: location.coordinates[0],
+              lng: location.coordinates[1],
+            },
+            additionalData,
+          };
+        });
+  
+        setLocations(transformedLocations);
+        setIsQueryDone(true);
       })
       .catch((error) => {
-        console.error("Error fetching McDonald's locations for query:", error);
+        console.error("Error fetching locations for query:", error);
       })
       .finally(() => {
-        setIsSearching(false); // End the search
+        setIsSearching(false);
       });
   };
-
+  // Define the addResult function
   const addResult = (location: ResultData) => {
-    setResults(() => {
-      const updatedResults = new Map();
-      updatedResults.set(1, location);
+    setResults((prevResults) => {
+      const updatedResults = new Map(prevResults);
+      updatedResults.set(location.coordinates.lat, location); // Use latitude as a unique key
       return updatedResults;
     });
   };
 
   return (
     <div className={styles.container}>
-      {/* map area */}
       <div className={styles.mapArea}>
         <LeafletMap>
-          <ResultPins results={results} />
+          <ResultPins results={results} query={query} /> {/* Pass the query prop */}
         </LeafletMap>
       </div>
-      {/* sidebar area */}
       <div className={styles.sidebar}>
         <div className={styles.SearchBar}>
           <SearchBar onSearch={handleSearch} />
-          {/* Show Throbber only when searching */}
           {isSearching && <Throbber loading={true} />}
           {isQueryDone ? (
             locations.length > 0 ? (
               <List
                 items={locations}
-                onViewInfo={(location) => addResult(location)}
+                query={query}
+                onViewInfo={(location) => {
+                  setResults(new Map()); // Clear previous pins
+                  addResult(location); // Add the new pin
+                }}
               />
             ) : (
               <p>No results found</p>

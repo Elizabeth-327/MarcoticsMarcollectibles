@@ -1,0 +1,30 @@
+{
+    "W205580695": {
+        "name": "Walmart",
+        "eggs": "$4.97",
+        "banana": "$0.26",
+        "cuties": "$3.97",
+        "grapes": "$4.43"
+    },
+    "W180772453": {
+        "name": "Walmart",
+        "eggs": "$4.97",
+        "banana": "$0.26",
+        "cuties": "$3.97",
+        "grapes": "$4.43"
+    },
+    "W205798388": {
+        "name": "Target",
+        "eggs": "$4.99",
+        "banana": "$0.29",
+        "cuties": "$3.99",
+        "grapes": "$3.69"
+    },
+    "W165083365": {
+        "name": "Dillons",
+        "eggs": "$4.99",
+        "banana": "$0.21",
+        "cuties": "$3.49",
+        "grapes": "$4.98"
+    }
+}
