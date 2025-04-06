@@ -20,7 +20,7 @@ type ResultData = {
 };
 
 export default function Home() {
-  const [data, setListItems] = useState<string[]>([]);
+  const [displayNames, setListItems] = useState<string[]>([]);
   const [isQueryDone, setIsQueryDone] = useState(false);
   const [results, setResults] = useState<Map<number, ResultData>>(new Map());
   const handleSearch = (query: string) => {
@@ -29,9 +29,10 @@ export default function Home() {
     // Make the API call when the user searches
     setIsQueryDone(false); // Show loading state
     getMcDonaldsLocations(query) // Pass the query to the API call
-      .then((data: string[]) => {
-        console.log("Fetched data for query:", data);
-        setListItems(data); // Update state with fetched data
+      .then((locations) => {
+        console.log("Fetched data for query:", locations);
+        const displayNames = locations.map((location) => location.displayName);
+        setListItems(displayNames); // Update state with display names
         setIsQueryDone(true); // Mark query as done
       })
       .catch((error) => {
@@ -62,8 +63,8 @@ export default function Home() {
         <SearchBar onSearch={handleSearch} />
           {/* Conditionally render the list based on the search results */}
           {isQueryDone ? (
-            data.length > 0 ? (
-              <List items={data} />
+            displayNames.length > 0 ? (
+              <List items={displayNames} />
             ) : (
               <p>No results found</p>
             )
