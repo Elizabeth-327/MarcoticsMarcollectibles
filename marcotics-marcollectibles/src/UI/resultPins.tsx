@@ -22,7 +22,7 @@ export default function ResultPins({ results }: { results: Map<number, ResultDat
       // Create and bind a Leaflet popup
       const popup = L.popup()
         .setContent(`<h1>${result.name}</h1><p>${result.address}</p>`)
-        .openOn(map); // Automatically open the popup when the marker is added
+        //popup.openOn(map); // Automatically open the popup when the marker is added
       marker.bindPopup(popup);
     });
 
