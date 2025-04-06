@@ -14,28 +14,23 @@ export default function List({ items, onViewInfo }: ListProps) {
   return (
     <div>
       {items.map((item, index) => (
-        <div
-          style={{
-            border: "1px solid black",
-            padding: "5px",
-            margin: "5px",
-            marginTop: "10px",
-            borderRadius: "8px",
-          }}
-          key={index}
-        >
-          <h3>{item.name}</h3>
-          <p>{item.address}</p>
+        <div key={index}>
+          {/* <h3>{item.name}</h3>
+          <p>{item.address}</p> */}
           <button
             style={{
               border: "1px solid black",
-              padding: "1px",
-              marginTop: "2px",
-              borderRadius: "2px",
+              padding: "5px",
+              margin: "5px",
+              marginTop: "5px",
+              borderRadius: "5px",
+              textAlign: "left",
+              backgroundColor: "white",
             }}
             onClick={() => onViewInfo(item)} // Call the callback with the location data
           >
-            View Info
+            <h2>{item.name}</h2>
+            <p>{item.address}</p>
           </button>
         </div>
       ))}
